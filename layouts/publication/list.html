@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+<div class="content-wrapper">
+  <ul>
+  {{ range (.Pages.ByParam "date").Reverse}}
+    <li>
+      <div>
+        <span class="title">{{ .Params.title }}</span>
+        <span class="author">
+          {{ $authors := split .Params.authors ", " }}
+          {{ range $index, $author := $authors }}
+            {{- if eq $author "Zitong Li" -}}
+              <span class="selfName">{{$author}}</span>
+            {{- else -}}
+              {{$author}}
+            {{- end -}}
+            {{- if not (eq $index (sub (len $authors) 1)) -}}, {{ end }}
+          {{ end }}
+        </span>
+        <span class="periodical">{{ .Params.periodical }}, {{dateFormat "2006" .Params.date}}</span>
+        <span class="link"><a href="{{ .Params.link }}">{{ .Params.link }}</a></span>
+      </div>
+    </li>
+  {{ end }}
+</ul>
+</div>
+{{ partial "footer.html" . }}
